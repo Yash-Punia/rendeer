@@ -5,15 +5,13 @@
 namespace rendeer
 {
     Engine *Engine::sInstance = nullptr;
-    Engine::Engine() : mIsRunning(false)
-    {
-        if (sInstance == nullptr)
-            sInstance = this;
-    }
+    Engine::Engine() : mIsRunning(false), mRenderManager(nullptr)
+    {}
 
     void Engine::Create()
     {
-        Engine();
+        if (sInstance == nullptr)
+            sInstance = new Engine();
     }
 
     void Engine::Run()
@@ -22,9 +20,17 @@ namespace rendeer
         {
             while (sInstance->mIsRunning)
             {
-                sInstance->mWindow.PumpEvents();
-            }
+                sInstance->mWindow.BeginRender();
 
+                sInstance->mRenderManager->Render();
+                
+                sInstance->mWindow.EndRender();
+
+                sInstance->mWindow.PumpEvents();
+
+
+            }
+            std::cout<<"Shutting down!\n";
             sInstance->Shutdown();
         }
     }
@@ -46,6 +52,7 @@ namespace rendeer
         {
             ret = true;
             mIsRunning = true;
+            mRenderManager = new RenderManager();
         }
 
         if (!ret)
@@ -61,6 +68,7 @@ namespace rendeer
 
     void Engine::Shutdown()
     {
+        mRenderManager->Shutdown();
         mWindow.Shutdown();
         SDL_Quit();
     }

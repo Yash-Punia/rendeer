@@ -1,6 +1,7 @@
 #pragma once
 
 struct SDL_Window;
+using SDL_GLContext = void*;
 
 namespace rendeer
 {
@@ -16,7 +17,11 @@ namespace rendeer
         // Queues for events
         void PumpEvents();
 
+        void BeginRender();
+        void EndRender();
+
     private:
         SDL_Window* mWindow;
+        SDL_GLContext mGLContext;
     };
 }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "core/window.h"
+#include "rendermanager.h"
 
 namespace rendeer
 {
@@ -16,6 +17,7 @@ namespace rendeer
         static Engine *sInstance;
         bool mIsRunning;
         Window mWindow;
+        RenderManager* mRenderManager;
 
         Engine();
         bool Initialize();
