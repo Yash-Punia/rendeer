@@ -17,6 +17,8 @@ namespace rendeer
         unsigned int VBO;
         unsigned int VAO;
         unsigned int EBO;
+        unsigned int mTexture1;
+        unsigned int mTexture2;
         Shader* mShader;
     };
 } // namespace rendeer
