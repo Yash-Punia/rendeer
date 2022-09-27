@@ -6,6 +6,8 @@
 #include "glad/glad.h"
 #include "sdl2/SDL.h"
 #include "stb_image.h"
+#include "glm/glm.hpp"
+#include "glm/gtc/matrix_transform.hpp"
 
 #define GL_CHECK() std::cout << glGetError() << std::endl;
 
@@ -43,9 +45,11 @@ namespace rendeer
             out vec3 color;
             out vec2 texCoord;
 
+            uniform mat4 transform;
+
             void main()
             {
-                gl_Position = vec4(aPos, 1.0);
+                gl_Position = transform * vec4(aPos, 1.0);
                 texCoord = aTexCoord;
                 color = aColor;
             }
@@ -65,7 +69,6 @@ namespace rendeer
                 FragColor = mix(texture(texture1, texCoord), texture(texture2, texCoord), 0.5);
             }
         )";
-
 
         glGenTextures(1, &mTexture1);
 
@@ -154,9 +157,15 @@ namespace rendeer
 
     void RenderManager::Render()
     {
+        float timeValue = (float) SDL_GetTicks() / 1000.0f;
         glClearColor(0.3, 0.3, 0.3, 1);
 
-        float timeValue = (float) SDL_GetTicks() / 1000.0f;
+                // tranformations
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::translate(trans, glm::vec3(0.5f, -0.5f, 0.0f));
+        trans = glm::rotate(trans, timeValue, glm::vec3(0.0f, 1.0f, 1.0f));
+        mShader->SetUniformMat4fv("transform", trans);
+
         float alphaValue = (SDL_sin(timeValue) / 2.0f) + 0.5f;
         mShader->Bind();
         

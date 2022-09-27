@@ -1,6 +1,8 @@
+#include <iostream>
 #include "shader.h"
 #include "glad/glad.h"
-#include <iostream>
+#include "glm/glm.hpp"
+#include "glm/gtc/type_ptr.hpp"
 
 namespace rendeer
 {
@@ -107,6 +109,11 @@ namespace rendeer
         glUniform4f(GetUniformLocation(name), val1, val2, val3, val4);
     }
 
+    void Shader::SetUniformMat4fv(const std::string name, const glm::mat4 matrix)
+    {
+        glUseProgram(mShaderProgram);
+        glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, glm::value_ptr(matrix));
+    }
 
     unsigned int Shader::GetUniformLocation(const std::string name)
     {

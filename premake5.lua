@@ -16,6 +16,7 @@ workspace "rendeer"
 
     externals["sdl2"] = "external/sdl2"
     externals["glad"] = "external/glad"
+    externals["glm"]  = "external/glm"
 
     --Process Glad before building our app
     include "external/glad"
@@ -41,7 +42,8 @@ workspace "rendeer"
         {
             "%{prj.name}/include",
             "%{externals.sdl2}/include",
-            "%{externals.glad}/include"
+            "%{externals.glad}/include",
+            "%{externals.glm}"
         }
 
         flags

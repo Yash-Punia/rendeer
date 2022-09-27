@@ -16,7 +16,7 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/Rendeer.exe
   OBJDIR = ../bin-obj/Debug/Rendeer
   DEFINES += -DGLFW_INCLUDE_NONE -DRENDEER_PLATFORM_WINDOWS
-  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include
+  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include -isystem ../external/glm
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Werror
@@ -43,7 +43,7 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/Rendeer.exe
   OBJDIR = ../bin-obj/Release/Rendeer
   DEFINES += -DGLFW_INCLUDE_NONE -DRENDEER_PLATFORM_WINDOWS
-  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include
+  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include -isystem ../external/glm
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Werror
