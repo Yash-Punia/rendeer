@@ -3,6 +3,7 @@
 namespace rendeer
 {
     class Shader;
+    class Camera;
     class RenderManager
     {
     public:
@@ -10,6 +11,7 @@ namespace rendeer
         ~RenderManager();
 
         void Render();
+        void Update(float);
         void Initialize();
         void Shutdown();
 
@@ -20,5 +22,6 @@ namespace rendeer
         unsigned int mTexture1;
         unsigned int mTexture2;
         Shader* mShader;
+        Camera* mCamera;
     };
 } // namespace rendeer

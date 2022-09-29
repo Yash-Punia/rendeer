@@ -5,8 +5,10 @@
 namespace rendeer
 {
     Engine *Engine::sInstance = nullptr;
-    Engine::Engine() : mIsRunning(false), mRenderManager(nullptr)
-    {}
+    Engine::Engine() : mIsRunning(false), mRenderManager(nullptr), mDeltaTime(0), mLastFrame(0)
+    {
+        
+    }
 
     void Engine::Create()
     {
@@ -20,17 +22,10 @@ namespace rendeer
         {
             while (sInstance->mIsRunning)
             {
-                sInstance->mWindow.BeginRender();
-
-                sInstance->mRenderManager->Render();
-                
-                sInstance->mWindow.EndRender();
-
-                sInstance->mWindow.PumpEvents();
-
-
+                sInstance->Render();
+                sInstance->Update();
             }
-            std::cout<<"Shutting down!\n";
+            std::cout << "Shutting down!\n";
             sInstance->Shutdown();
         }
     }
@@ -38,15 +33,15 @@ namespace rendeer
     bool Engine::Initialize()
     {
         bool ret = false;
-        
+
         if (SDL_Init(SDL_INIT_EVERYTHING) < 0)
         {
-            std::cout<<"Error initializing SDL2: " << SDL_GetError() << std::endl;
+            std::cout << "Error initializing SDL2: " << SDL_GetError() << std::endl;
         }
 
         SDL_version version;
         SDL_VERSION(&version);
-        std::cout << "SDL " << (int32_t) version.major << "." << (int32_t) version.minor << "." << (int32_t) version.patch << std::endl;
+        std::cout << "SDL " << (int32_t)version.major << "." << (int32_t)version.minor << "." << (int32_t)version.patch << std::endl;
 
         if (mWindow.Create())
         {
@@ -57,13 +52,30 @@ namespace rendeer
 
         if (!ret)
         {
-            std::cout<<"Error while initializing Engine. Shutting down." << std::endl;
+            std::cout << "Error while initializing Engine. Shutting down." << std::endl;
             Shutdown();
         }
 
-        std::cout<<"Initialized successfully";
+        std::cout << "Initialized successfully";
 
         return ret;
+    }
+
+    void Engine::Render()
+    {
+        mWindow.BeginRender();
+        mRenderManager->Render();
+        mWindow.EndRender();
+    }
+
+    void Engine::Update()
+    {
+        float currentFrame = GetTicks();
+        mDeltaTime = currentFrame - mLastFrame;
+        mLastFrame = currentFrame;
+        mWindow.PumpEvents();
+
+        mRenderManager->Update(mDeltaTime);
     }
 
     void Engine::Shutdown()

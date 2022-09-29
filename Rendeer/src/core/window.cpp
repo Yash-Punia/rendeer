@@ -2,6 +2,8 @@
 #include "core/window.h"
 #include "sdl2/SDL.h"
 #include "engine.h"
+#include "input/keyboard.h"
+#include "input/mouse.h"
 #include "glad/glad.h"
 
 namespace rendeer
@@ -16,7 +18,7 @@ namespace rendeer
 
     bool Window::Create()
     {
-        mWindow = SDL_CreateWindow("Rendeer 🦌", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
+        mWindow = SDL_CreateWindow("Rendeer 🦌", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, Width, Height, SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
         if (!mWindow)
             return false;
 
@@ -72,11 +74,21 @@ namespace rendeer
                 Engine::Quit();
                 break;
             
+            case SDL_MOUSEWHEEL:
+                input::Mouse::UpdateScroll(e.wheel.x, e.wheel.y);
+                break;
+
             case SDL_KEYDOWN:
                 if (SDLK_ESCAPE == e.key.keysym.sym)
                     Engine::Quit();
                 break;
             }
         }
+
+        if (e.type != SDL_MOUSEWHEEL)
+            input::Mouse::UpdateScroll(0,0);
+
+        input::Keyboard::Update();
+        input::Mouse::Update();
     }
 }
