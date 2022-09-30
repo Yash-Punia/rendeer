@@ -16,7 +16,7 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/Rendeer.exe
   OBJDIR = ../bin-obj/Debug/Rendeer
   DEFINES += -DGLFW_INCLUDE_NONE -DRENDEER_PLATFORM_WINDOWS
-  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include -isystem ../external/glm
+  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Werror
@@ -43,7 +43,7 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/Rendeer.exe
   OBJDIR = ../bin-obj/Release/Rendeer
   DEFINES += -DGLFW_INCLUDE_NONE -DRENDEER_PLATFORM_WINDOWS
-  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include -isystem ../external/glm
+  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Werror
@@ -72,9 +72,9 @@ OBJECTS := \
 	$(OBJDIR)/mouse.o \
 	$(OBJDIR)/main.o \
 	$(OBJDIR)/mesh.o \
-	$(OBJDIR)/rendermanager.o \
 	$(OBJDIR)/shader.o \
 	$(OBJDIR)/stb_image.o \
+	$(OBJDIR)/texture.o \
 
 RESOURCES := \
 
@@ -154,13 +154,13 @@ $(OBJDIR)/main.o: src/main.cpp
 $(OBJDIR)/mesh.o: src/mesh.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
-$(OBJDIR)/rendermanager.o: src/rendermanager.cpp
-	@echo $(notdir $<)
-	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/shader.o: src/shader.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/stb_image.o: src/stb_image.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/texture.o: src/texture.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 

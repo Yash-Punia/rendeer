@@ -1,7 +1,7 @@
 #pragma once
 
 #include "core/window.h"
-#include "rendermanager.h"
+#include "app.h"
 #include "sdl2/SDL.h"
 #include "glm/glm.hpp"
 
@@ -12,7 +12,7 @@ namespace rendeer
     public:
         ~Engine() {}
         
-        static void Create();
+        static void Create(App* app);
         static void Run();
 
         void Update();
@@ -23,10 +23,10 @@ namespace rendeer
         inline static glm::vec2 GetWindowSize() { return sInstance->mWindow.GetWindowSize(); }
     private:
         static Engine *sInstance;
+        static App* mApp;
         float mLastFrame, mDeltaTime;
         bool mIsRunning;
         Window mWindow;
-        RenderManager* mRenderManager;
 
         Engine();
         bool Initialize();

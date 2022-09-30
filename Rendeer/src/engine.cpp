@@ -1,19 +1,24 @@
 #include "engine.h"
-#include <iostream>
+#include "app.h"
 #include "sdl2/SDL.h"
+#include <iostream>
 
 namespace rendeer
 {
     Engine *Engine::sInstance = nullptr;
-    Engine::Engine() : mIsRunning(false), mRenderManager(nullptr), mDeltaTime(0), mLastFrame(0)
+    App *Engine::mApp = nullptr;
+
+    Engine::Engine() : mIsRunning(false), mDeltaTime(0), mLastFrame(0)
     {
-        
     }
 
-    void Engine::Create()
+    void Engine::Create(App *app)
     {
         if (sInstance == nullptr)
+        {
             sInstance = new Engine();
+            mApp = app;
+        }
     }
 
     void Engine::Run()
@@ -47,7 +52,7 @@ namespace rendeer
         {
             ret = true;
             mIsRunning = true;
-            mRenderManager = new RenderManager();
+            mApp->Initialize();
         }
 
         if (!ret)
@@ -56,7 +61,7 @@ namespace rendeer
             Shutdown();
         }
 
-        std::cout << "Initialized successfully";
+        std::cout << "Initialized successfully\n";
 
         return ret;
     }
@@ -64,7 +69,7 @@ namespace rendeer
     void Engine::Render()
     {
         mWindow.BeginRender();
-        mRenderManager->Render();
+        mApp->Render();
         mWindow.EndRender();
     }
 
@@ -75,12 +80,12 @@ namespace rendeer
         mLastFrame = currentFrame;
         mWindow.PumpEvents();
 
-        mRenderManager->Update(mDeltaTime);
+        mApp->Update(mDeltaTime);
     }
 
     void Engine::Shutdown()
     {
-        mRenderManager->Shutdown();
+        mApp->Shutdown();
         mWindow.Shutdown();
         SDL_Quit();
     }

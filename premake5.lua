@@ -42,8 +42,7 @@ workspace "rendeer"
         {
             "%{prj.name}/include",
             "%{externals.sdl2}/include",
-            "%{externals.glad}/include",
-            "%{externals.glm}"
+            "%{externals.glad}/include"
         }
 
         flags
@@ -57,13 +56,13 @@ workspace "rendeer"
             "RENDEER_PLATFORM_WINDOWS"
         }
 
-        libdirs
-        {
-            "%{externals.sdl2}/lib"
-        }
-
         links
         {
             "SDL2",
             "glad"
+        }
+
+        libdirs
+        {
+            "%{externals.sdl2}/lib"
         }

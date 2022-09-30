@@ -71,8 +71,6 @@ namespace rendeer
 
             Zoom -= scrollY;
 
-            std::cout << "Zoom: " << Zoom << std::endl;
-
             if (Zoom < 1.0f)
                 Zoom = 1.0f;
             if (Zoom > 45.0f)
