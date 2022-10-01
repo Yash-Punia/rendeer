@@ -11,6 +11,7 @@ namespace rendeer
         ~Texture();
 
         void Bind();
+        void Bind(int textureIndex);
         void Unbind();
         
     private:

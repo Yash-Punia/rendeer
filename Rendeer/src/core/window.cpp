@@ -5,6 +5,7 @@
 #include "input/keyboard.h"
 #include "input/mouse.h"
 #include "glad/glad.h"
+#include "external/imgui/imgui.h"
 
 namespace rendeer
 {
@@ -44,6 +45,8 @@ namespace rendeer
         glEnable(GL_BLEND); // transparent object visibility
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA); 
 
+        mImguiWindow.Create();
+
         return true;
     }
 
@@ -60,6 +63,12 @@ namespace rendeer
 
     void Window::EndRender()
     {
+        mImguiWindow.BeginRender();
+
+        Engine::GetApp()->UI_Render();
+
+        mImguiWindow.EndRender();
+
         SDL_GL_SwapWindow(mWindow); 
     }
 
@@ -87,8 +96,13 @@ namespace rendeer
 
         if (e.type != SDL_MOUSEWHEEL)
             input::Mouse::UpdateScroll(0,0);
+        
+        if (!mImguiWindow.WantCaptureMouse())
+            input::Mouse::Update();
 
-        input::Keyboard::Update();
-        input::Mouse::Update();
+        if (!mImguiWindow.WantCaptureKeyboard())
+            input::Keyboard::Update();
+
+        mImguiWindow.HandleSDLEvent(e);
     }
 }

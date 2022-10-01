@@ -35,6 +35,7 @@ workspace "rendeer"
         files 
         {
             "%{prj.name}/include/**.h",
+            "%{prj.name}/include/**.cpp",
             "%{prj.name}/src/**.cpp",
         }
 

@@ -57,7 +57,6 @@ namespace rendeer
             glDeleteProgram(mShaderProgram);
             mShaderProgram = -1;
         }
-        
         glDeleteShader(vertexShaderId);
         glDeleteShader(fragmentShaderId);
     }

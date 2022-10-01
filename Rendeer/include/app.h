@@ -12,6 +12,7 @@ namespace rendeer
         virtual void Shutdown() {}
         virtual void Update(float) {}
         virtual void Render() {}
+        virtual void UI_Render() {}
     private:
         
     };

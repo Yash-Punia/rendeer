@@ -120,9 +120,11 @@ public:
         for(int i=0; i<10; i++)
             cubePositions[i] = positions[i];
 
+        const int attributes[] = {3,2};
+
         shader = new Shader(vertexShaderSource, fragmentShaderSource);
         texture = new Texture("D:\\Programming\\rendeer\\assets\\textures\\zdmn.png");
-        mesh = new Mesh(vertices, sizeof(cubeVertices));
+        mesh = new Mesh(vertices, sizeof(cubeVertices), attributes, 2);
 
         camera = new Camera(glm::vec3(0.0f, 0.0f, 3.0f));
     }
@@ -155,7 +157,7 @@ public:
         view = camera->GetViewMatrix();
 
         glm::mat4 projection;
-        projection = glm::perspective(glm::radians(camera->Zoom), Engine::GetWindowSize().x / Engine::GetWindowSize().y, 0.1f, 100.0f);
+        projection = glm::perspective(glm::radians(camera->Zoom), (float)(Engine::GetWindow().Width) / (float)(Engine::GetWindow().Height), 0.1f, 100.0f);
 
         shader->SetUniformMat4fv("view", view);
         shader->SetUniformMat4fv("projection", projection);

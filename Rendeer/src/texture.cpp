@@ -23,6 +23,7 @@ namespace rendeer
 
     Texture::~Texture()
     {
+        
     }
 
     void Texture::Bind()
@@ -31,6 +32,12 @@ namespace rendeer
         glBindTexture(GL_TEXTURE_2D, mId);
     }
 
+    void Texture::Bind(int textureIndex)
+    {
+        glActiveTexture(GL_TEXTURE0 + textureIndex);
+        glBindTexture(GL_TEXTURE_2D, mId);
+    }
+   
     void Texture::Unbind()
     {
         glBindTexture(GL_TEXTURE_2D, 0);

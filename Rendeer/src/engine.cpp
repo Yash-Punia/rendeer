@@ -71,6 +71,8 @@ namespace rendeer
         mWindow.BeginRender();
         mApp->Render();
         mWindow.EndRender();
+
+        // mApp->UI_Render();
     }
 
     void Engine::Update()

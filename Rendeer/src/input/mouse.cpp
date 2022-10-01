@@ -9,6 +9,7 @@ namespace rendeer::input
 
     void Mouse::Update()
     {
+
         xLast = x;
         yLast = y;
         Uint32 state = SDL_GetMouseState(&x, &y);

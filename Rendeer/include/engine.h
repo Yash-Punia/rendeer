@@ -20,7 +20,8 @@ namespace rendeer
 
         inline static void Quit() { sInstance->mIsRunning = false; }
         inline static float GetTicks() { return (float) SDL_GetTicks() / 1000; }
-        inline static glm::vec2 GetWindowSize() { return sInstance->mWindow.GetWindowSize(); }
+        inline static Window& GetWindow() { return sInstance->mWindow; }
+        inline static App* GetApp() { return mApp; }
     private:
         static Engine *sInstance;
         static App* mApp;
