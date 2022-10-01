@@ -178,14 +178,19 @@ public:
     }
 };
 
-int WinMain()
-{
-    App *app = new RendeerApp();
 
-    Engine::Create(app);
-    Engine::Run();
+// Uncomment below main function
+
+// Make sure only one main function is there when building project
+
+// int WinMain()
+// {
+//     App *app = new RendeerApp();
+
+//     Engine::Create(app);
+//     Engine::Run();
     
-    delete app;
+//     delete app;
     
-    return 0;
-}
+//     return 0;
+// }

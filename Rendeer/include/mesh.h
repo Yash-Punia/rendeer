@@ -5,8 +5,8 @@ namespace rendeer
     class Mesh
     {
     public:
-        Mesh(const float* vertices, const int dimension);
-        Mesh(const float* vertices, const int* indices);
+        Mesh(const float* vertices, const int dimension, const int* attributes, const int numAttributes);
+        // Mesh(const float* vertices, const int* indices);
         ~Mesh();
 
         void Bind();
