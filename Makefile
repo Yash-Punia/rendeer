@@ -10,14 +10,16 @@ endif
 
 ifeq ($(config),debug)
   glad_config = debug
+  assimp_config = debug
   Rendeer_config = debug
 endif
 ifeq ($(config),release)
   glad_config = release
+  assimp_config = release
   Rendeer_config = release
 endif
 
-PROJECTS := glad Rendeer
+PROJECTS := glad assimp Rendeer
 
 .PHONY: all clean help $(PROJECTS) 
 
@@ -29,7 +31,13 @@ ifneq (,$(glad_config))
 	@${MAKE} --no-print-directory -C external/glad -f Makefile config=$(glad_config)
 endif
 
-Rendeer: glad
+assimp:
+ifneq (,$(assimp_config))
+	@echo "==== Building assimp ($(assimp_config)) ===="
+	@${MAKE} --no-print-directory -C external/assimp -f Makefile config=$(assimp_config)
+endif
+
+Rendeer: glad assimp
 ifneq (,$(Rendeer_config))
 	@echo "==== Building Rendeer ($(Rendeer_config)) ===="
 	@${MAKE} --no-print-directory -C Rendeer -f Makefile config=$(Rendeer_config)
@@ -37,6 +45,7 @@ endif
 
 clean:
 	@${MAKE} --no-print-directory -C external/glad -f Makefile clean
+	@${MAKE} --no-print-directory -C external/assimp -f Makefile clean
 	@${MAKE} --no-print-directory -C Rendeer -f Makefile clean
 
 help:
@@ -50,6 +59,7 @@ help:
 	@echo "   all (default)"
 	@echo "   clean"
 	@echo "   glad"
+	@echo "   assimp"
 	@echo "   Rendeer"
 	@echo ""
 	@echo "For more information, see https://github.com/premake/premake-core/wiki"

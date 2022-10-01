@@ -17,9 +17,11 @@ workspace "rendeer"
     externals["sdl2"] = "external/sdl2"
     externals["glad"] = "external/glad"
     externals["glm"]  = "external/glm"
+    externals["assimp"] = "external/assimp"
 
-    --Process Glad before building our app
+    --Process externals before building our app
     include "external/glad"
+    include "external/assimp"
 
     --Main editor application
     project "Rendeer"
@@ -43,7 +45,8 @@ workspace "rendeer"
         {
             "%{prj.name}/include",
             "%{externals.sdl2}/include",
-            "%{externals.glad}/include"
+            "%{externals.glad}/include",
+            "%{externals.assimp}/include"
         }
 
         flags
@@ -60,7 +63,8 @@ workspace "rendeer"
         links
         {
             "SDL2",
-            "glad"
+            "glad",
+            "assimp"
         }
 
         libdirs

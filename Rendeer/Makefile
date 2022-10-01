@@ -16,14 +16,14 @@ ifeq ($(config),debug)
   TARGET = $(TARGETDIR)/Rendeer.exe
   OBJDIR = ../bin-obj/Debug/Rendeer
   DEFINES += -DGLFW_INCLUDE_NONE -DRENDEER_PLATFORM_WINDOWS
-  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include
+  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include -isystem ../external/assimp/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Werror
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Werror -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../external/glad/bin/Debug/glad/glad.lib -lSDL2
-  LDDEPS += ../external/glad/bin/Debug/glad/glad.lib
+  LIBS += ../external/glad/bin/Debug/glad/glad.lib ../external/assimp/bin/Debug/assimp/assimp.lib -lSDL2
+  LDDEPS += ../external/glad/bin/Debug/glad/glad.lib ../external/assimp/bin/Debug/assimp/assimp.lib
   ALL_LDFLAGS += $(LDFLAGS) -L../external/sdl2/lib -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
@@ -43,14 +43,14 @@ ifeq ($(config),release)
   TARGET = $(TARGETDIR)/Rendeer.exe
   OBJDIR = ../bin-obj/Release/Rendeer
   DEFINES += -DGLFW_INCLUDE_NONE -DRENDEER_PLATFORM_WINDOWS
-  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include
+  INCLUDES += -isystem include -isystem ../external/sdl2/include -isystem ../external/glad/include -isystem ../external/assimp/include
   FORCE_INCLUDE +=
   ALL_CPPFLAGS += $(CPPFLAGS) -MMD -MP $(DEFINES) $(INCLUDES)
   ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -Werror
   ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -Werror -std=c++17
   ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-  LIBS += ../external/glad/bin/Release/glad/glad.lib -lSDL2
-  LDDEPS += ../external/glad/bin/Release/glad/glad.lib
+  LIBS += ../external/glad/bin/Release/glad/glad.lib ../external/assimp/bin/Release/assimp/assimp.lib -lSDL2
+  LDDEPS += ../external/glad/bin/Release/glad/glad.lib ../external/assimp/bin/Release/assimp/assimp.lib
   ALL_LDFLAGS += $(LDFLAGS) -L../external/sdl2/lib -s
   LINKCMD = $(CXX) -o "$@" $(OBJECTS) $(RESOURCES) $(ALL_LDFLAGS) $(LIBS)
   define PREBUILDCMDS
