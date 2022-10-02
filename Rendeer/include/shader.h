@@ -20,6 +20,8 @@ namespace rendeer
         void SetUniformFloat3(const std::string, float val1, float val2, float val3);
         void SetUniformFloat4(const std::string, float val1, float val2, float val3, float val4);
         void SetUniformMat4fv(const std::string, const glm::mat4);
+    
+        
     private:
         unsigned int mShaderProgram;
         std::unordered_map<std::string, int> mUniformLocations; 

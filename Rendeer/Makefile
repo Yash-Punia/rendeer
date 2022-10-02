@@ -76,6 +76,7 @@ OBJECTS := \
 	$(OBJDIR)/glm.o \
 	$(OBJDIR)/floatingCubes.o \
 	$(OBJDIR)/lighting.o \
+	$(OBJDIR)/modelApp.o \
 	$(OBJDIR)/camera.o \
 	$(OBJDIR)/imguiwindow.o \
 	$(OBJDIR)/window.o \
@@ -83,6 +84,7 @@ OBJECTS := \
 	$(OBJDIR)/keyboard.o \
 	$(OBJDIR)/mouse.o \
 	$(OBJDIR)/mesh.o \
+	$(OBJDIR)/model.o \
 	$(OBJDIR)/shader.o \
 	$(OBJDIR)/stb_image.o \
 	$(OBJDIR)/texture.o \
@@ -177,6 +179,9 @@ $(OBJDIR)/floatingCubes.o: src/Apps/floatingCubes.cpp
 $(OBJDIR)/lighting.o: src/Apps/lighting.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/modelApp.o: src/Apps/modelApp.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/camera.o: src/camera.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
@@ -196,6 +201,9 @@ $(OBJDIR)/mouse.o: src/input/mouse.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/mesh.o: src/mesh.cpp
+	@echo $(notdir $<)
+	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
+$(OBJDIR)/model.o: src/model.cpp
 	@echo $(notdir $<)
 	$(SILENT) $(CXX) $(ALL_CXXFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/shader.o: src/shader.cpp
